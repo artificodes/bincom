@@ -1,0 +1,84 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="card">
+  <div class="bg-white p-3 text-center">
+    <div class="card uk-display-inline-block" style="max-width: 500px;">
+      <div class="card-body">
+
+        <div id="form-error" class="text-sm text-center text-dark p-4 hide pb-0 uk-animation-slide-bottom-medium">
+
+        </div>
+        <form class="form uk-animation-slide-top-medium" id="addproductform" method="POST" enctype="multipart/form-data"
+          action="{% url 'polling_units_results' %}" style="">
+
+          {% csrf_token %}
+          <div class="form-group mb-3 mt-4 shadow-none">
+            <p class="h2">Select polling unit</p>
+            <div class="input-group input-group-merge input-group-alternative p-1 shadow-none">
+
+              <select class="ui search selection dropdown fluid p-2" data-style="btn btn-link" name="id" id="polling_units" required>
+
+                {% for unit in units %}
+                <option value='{{unit.pk}}'>{{unit.polling_unit_name}}</option>
+                {% endfor %}
+              </select>
+
+
+            </div>
+          </div>
+</form>
+      </div>
+    </div>
+
+    <div id="polling_unit" class="h2">
+
+    </div>
+    <div id="polling_unit_polls">
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+  $("#polling_units").on('change', function (event) {
+    var selected = $(this)
+    $.ajax({
+      beforeSend: function () {
+      },
+      complete: function () {
+      },
+      url: "{% url 'polling_units_polls' %}",
+      type: 'get',
+      data: {
+        'csrfmiddlewaretoken': '{{csrf_token}}',
+        'uniqueid': selected.val(),
+        'format':'json'
+      },
+
+      success: function (response) {
+        $('#polling_unit_polls').empty()
+      for (const key in response['polls']) {
+        $('#polling_unit_polls').append('<p>' +'<span class="text-bold p-2">'+response['polls'][key]['party_abbreviation'] +  '</span>' +response['polls'][key]['result_id']+'</p>')
+        }
+      
+
+      },
+
+      error: function (xhr, status, error) {
+        alert(status)
+      }
+    });
+  }
+
+  );
+
+
+</script>
+
+
+
+{% endblock content %}

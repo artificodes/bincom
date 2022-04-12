@@ -1,0 +1,83 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="card">
+  <div class="bg-white p-3 text-center">
+    <div class="card uk-display-inline-block" style="max-width: 500px;">
+      <div class="card-body">
+
+        <div id="form-error" class="text-sm text-center text-dark p-4 hide pb-0 uk-animation-slide-bottom-medium">
+
+        </div>
+        <form class="form uk-animation-slide-top-medium" id="addproductform" method="POST" enctype="multipart/form-data"
+          action="{% url 'lga_total' %}" style="">
+
+          {% csrf_token %}
+          <div class="form-group mb-3 mt-4 shadow-none">
+            <p class="h2">Select LGA</p>
+            <div class="input-group input-group-merge input-group-alternative p-1 shadow-none">
+
+              <select class="ui search selection dropdown fluid p-2" data-style="btn btn-link" name="id" id="lgas" required>
+
+                {% for lga in lgas %}
+                <option value='{{lga.lga_id}}'>{{lga.lga_name}}</option>
+                {% endfor %}
+              </select>
+
+
+            </div>
+          </div>
+</form>
+      </div>
+    </div>
+
+    <div id="lga_c" class="h2">
+      
+    </div>
+    <div id="lga_total">
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+  $("#lgas").on('change', function (event) {
+    var selected = $(this)
+    $.ajax({
+      beforeSend: function () {
+      },
+      complete: function () {
+      },
+      url: "{% url 'lga_total' %}",
+      type: 'get',
+      data: {
+        'csrfmiddlewaretoken': '{{csrf_token}}',
+        'lga_id': selected.val(),
+        'format':'json'
+      },
+
+      success: function (response) {
+        $('#lga_c').empty()
+        $('#lga_c').append(response['lga']['lga_name'])
+        $('#lga_total').empty()
+        $('#lga_total').append(response['total'])
+
+      },
+
+      error: function (xhr, status, error) {
+        alert(status)
+      }
+    });
+  }
+
+  );
+
+
+</script>
+
+
+
+{% endblock content %}

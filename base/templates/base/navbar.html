@@ -1,0 +1,52 @@
+<div class="rounded-md position-relative p-0" style="z-index: 3;">
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+  
+    </div>
+    <nav class="navbar navbar-expand-lg bg-default p-0 pr-md-8 pl-md-8" style="z-index: 3; min-height: 50px;">
+      <div class="uk-width-1-1">
+        <button class="navbar-toggler btn bg-transparent shadow-none uk-position-top-right" style="z-index: 2;"
+          type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+  
+          <a class="navbar-toggler-icon mt-0 text-white uk-icon-button position-relative" style="height: 40px;width: 40px;">
+            <i class="material-icons-round text-bold uk-position-center">table_rows</i>
+          </a>
+        </button>
+        <div class="collapse navbar-collapse uk-animation-fade mt-5 mt-md-0 mt-sm-5" id="navbarNav">
+          <ul class="navbar-nav p-0">
+
+  
+            <li class="nav-item mt-md-0">
+              <a class="nav-link  p-3 pl-3 pr-3 pr-md-5 pl-md-5 text-white  text-capitalize dropdown-item rounded-0 main"
+                aria-current="page" href="{% url 'polling_units_results' %}">Polling Unit results</a>
+            </li>
+  
+  
+  
+            <li class="nav-item mt-md-0">
+                <a class="nav-link  p-3 pl-3 pr-3 pr-md-5 pl-md-5 text-white  text-capitalize dropdown-item rounded-0 main"
+                  aria-current="page" href="{% url 'lga_results' %}">LGA results</a>
+              </li>
+    
+              
+            <li class="nav-item mt-md-0">
+                <a class="nav-link  p-3 pl-3 pr-3 pr-md-5 pl-md-5 text-white  text-capitalize dropdown-item rounded-0 main"
+                  aria-current="page" href="{% url 'create_poll' %}">Create Poll</a>
+              </li>
+          </ul>
+  
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+  
+  
+  <div class="fixed-top text-center">
+    <div
+      class="text-white text-center bg-green pt-2 pb-2 pl-2 pr-2 success uk-box-shadow-medium  uk-position-top-center uk-animation-slide-top-medium hide uk-position-top-center top-0 rounded-bottom"
+      id="success-alert" style="max-width: 320px;width: 100%;">
+      <p class=""><i class="fa fa-check mr-1"> </i> <span id="success-alert-inner"></span></p>
+    </div>
+  </div>
+  
